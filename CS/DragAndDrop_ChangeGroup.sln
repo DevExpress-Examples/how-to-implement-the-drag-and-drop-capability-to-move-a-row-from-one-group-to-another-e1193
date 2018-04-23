@@ -1,0 +1,19 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDrop_ChangeGroup", "DragAndDrop_ChangeGroup.csproj", "{B7D03B4A-3E12-4C69-896E-1604B4240347}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7D03B4A-3E12-4C69-896E-1604B4240347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7D03B4A-3E12-4C69-896E-1604B4240347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7D03B4A-3E12-4C69-896E-1604B4240347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7D03B4A-3E12-4C69-896E-1604B4240347}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
