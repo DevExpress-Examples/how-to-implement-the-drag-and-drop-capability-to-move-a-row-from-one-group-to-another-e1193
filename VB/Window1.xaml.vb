@@ -1,4 +1,4 @@
-﻿Imports Microsoft.VisualBasic
+﻿Imports System
 Imports System.ComponentModel
 Imports System.Windows
 Imports System.Windows.Input
@@ -8,6 +8,7 @@ Namespace DragAndDrop_ChangeGroup
 
 	Partial Public Class Window1
 		Inherits Window
+
 		Private list As BindingList(Of TestData)
 		Private dragStarted As Boolean
 
@@ -17,7 +18,11 @@ Namespace DragAndDrop_ChangeGroup
 '			#Region "Data binding"
 			list = New BindingList(Of TestData)()
 			For i As Integer = 0 To 99
-				list.Add(New TestData() With {.Text = "row " & i, .Group = "group " & i \ 5, .Number = i})
+				list.Add(New TestData() With {
+					.Text = "row " & i,
+					.Group = "group " & i \ 5,
+					.Number = i
+				})
 			Next i
 
 			grid.ItemsSource = list
@@ -34,14 +39,18 @@ Namespace DragAndDrop_ChangeGroup
 		End Sub
 
 		Private Sub View_Drop(ByVal sender As Object, ByVal e As DragEventArgs)
-			Dim rowHandle As Integer = CInt(Fix(e.Data.GetData(GetType(Integer))))
+			Dim rowHandle As Integer = CInt(Math.Truncate(e.Data.GetData(GetType(Integer))))
 			Dim obj As TestData = CType(grid.GetRow(rowHandle), TestData)
 			Dim dropRowHandle As Integer = view.GetRowHandleByTreeElement(TryCast(e.OriginalSource, DependencyObject))
 			If grid.GroupCount = 1 Then
 				Dim fieldName As String = grid.SortInfo(0).FieldName
 				Dim groupValue As Object = grid.GetCellValue(dropRowHandle, fieldName)
 				If IsCopyEffect(e) Then
-					Dim newData As New TestData() With {.Text = obj.Text & " (Copy)", .Number = obj.Number, .Group = obj.Group}
+					Dim newData As New TestData() With {
+						.Text = obj.Text & " (Copy)",
+						.Number = obj.Number,
+						.Group = obj.Group
+					}
 					TypeDescriptor.GetProperties(GetType(TestData))(fieldName).SetValue(newData, groupValue)
 					list.Add(newData)
 				Else
@@ -74,7 +83,7 @@ Namespace DragAndDrop_ChangeGroup
 
 		Private Sub View_PreviewMouseDown(ByVal sender As Object, ByVal e As MouseButtonEventArgs)
 			Dim rowHandle As Integer = view.GetRowHandleByMouseEventArgs(e)
-			If rowHandle <> GridDataController.InvalidRow AndAlso (Not grid.IsGroupRowHandle(rowHandle)) Then
+			If rowHandle <> GridDataController.InvalidRow AndAlso Not grid.IsGroupRowHandle(rowHandle) Then
 				dragStarted = True
 			End If
 		End Sub
@@ -89,49 +98,53 @@ Namespace DragAndDrop_ChangeGroup
 	#Region "TestData class"
 	Public Class TestData
 		Implements INotifyPropertyChanged
-		Private text_Renamed As String
-		Private number_Renamed As Integer
-		Private group_Renamed As String
+
+'INSTANT VB NOTE: The field text was renamed since Visual Basic does not allow fields to have the same name as other class members:
+		Private text_Conflict As String
+'INSTANT VB NOTE: The field number was renamed since Visual Basic does not allow fields to have the same name as other class members:
+		Private number_Conflict As Integer
+'INSTANT VB NOTE: The field group was renamed since Visual Basic does not allow fields to have the same name as other class members:
+		Private group_Conflict As String
 
 		Public Property Text() As String
 			Get
-				Return text_Renamed
+				Return text_Conflict
 			End Get
 			Set(ByVal value As String)
 				If Text = value Then
 					Return
 				End If
-				text_Renamed = value
+				text_Conflict = value
 				OnPorpertyChanged("Text")
 			End Set
 		End Property
 		Public Property Number() As Integer
 			Get
-				Return number_Renamed
+				Return number_Conflict
 			End Get
 			Set(ByVal value As Integer)
 				If Number = value Then
 					Return
 				End If
-				number_Renamed = value
+				number_Conflict = value
 				OnPorpertyChanged("Number")
 			End Set
 
 		End Property
 		Public Property Group() As String
 			Get
-				Return group_Renamed
+				Return group_Conflict
 			End Get
 			Set(ByVal value As String)
 				If Group = value Then
 					Return
 				End If
-				group_Renamed = value
+				group_Conflict = value
 				OnPorpertyChanged("Group")
 			End Set
 		End Property
 
-		Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+		Public Event PropertyChanged As PropertyChangedEventHandler
 		Private Sub OnPorpertyChanged(ByVal propertyName As String)
 			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
 		End Sub
