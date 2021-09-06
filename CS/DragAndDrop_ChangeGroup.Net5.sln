@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDrop_ChangeGroup", "DragAndDrop_ChangeGroup.csproj", "{B7D03B4A-3E12-4C69-896E-1604B4240347}"
+# Visual Studio 16
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDrop_ChangeGroup", "DragAndDrop_ChangeGroup.Net5.csproj", "{B7D03B4A-3E12-4C69-896E-1604B4240347}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
